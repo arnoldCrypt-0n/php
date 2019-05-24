@@ -1,0 +1,16 @@
+//$file="config.txt"
+    public function getConfig($file){
+        $conf=[];
+        $handle = @fopen($file, "r");
+        if ($handle) {
+            while (!feof($handle)) {
+                $str=fgets($handle, 4096);
+                if (substr($str,  0,1)!='#'&&stripos($str, '=')!==false) {  
+                    $str=explode("=", $str);
+                    $conf[$str[0]]=$str[1];
+                } 
+            }
+            fclose($handle);
+            }
+        return (sizeof($conf))?$conf:null;
+        }
